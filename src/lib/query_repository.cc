@@ -212,8 +212,8 @@ QueryRepository::QueryRepositoryImpl::readNextRequest(
         options_.clear();
         authorities.clear();
         stringstream ss(line);
-        string qname_text, qtype_text;
-        ss >> qname_text >> qtype_text;
+        string qname_text, qclass_text, qtype_text;
+        ss >> qname_text >> qclass_text >> qtype_text;
         if (ss.bad() || ss.fail()) {
             // Ignore the line is organized in an unexpected way.
             continue;
