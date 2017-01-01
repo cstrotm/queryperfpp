@@ -368,7 +368,7 @@ ASIOMessageManager::createMessageSocket(int proto, const std::string& address,
         throw MessageSocketError("null socket callback specified");
     }
     if (proto == IPPROTO_UDP) {
-        std::auto_ptr<UDPMessageSocket> impl_p(
+        std::unique_ptr<UDPMessageSocket> impl_p(
             new UDPMessageSocket(impl_->io_service_, address, port,
                                  recvbuf, recvbuf_len, callback));
         ret = new ASIOMessageSocket(impl_p.get());
@@ -378,7 +378,7 @@ ASIOMessageManager::createMessageSocket(int proto, const std::string& address,
         if (recvbuf_len < 65535) { // must be able to hold a full TCP msg
             throw MessageSocketError("Insufficient TCP receive buffer");
         }
-        std::auto_ptr<TCPMessageSocket> impl_p(
+        std::unique_ptr<TCPMessageSocket> impl_p(
             new TCPMessageSocket(impl_->io_service_, address, port, recvbuf,
                                  callback));
         ret = new ASIOMessageSocket(impl_p.get());
